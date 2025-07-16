@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Submit Ticket</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Roboto;
+      background-color: #f2f2f7;
+      color: #1c1c1e;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    body.dark {
+      background-color: #1c1c1e;
+      color: #f2f2f7;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #007aff;
+      border: none;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark .form-container {
+      background-color: #2c2c2e;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005bb5;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .nav-links a {
+      color: #007aff;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-mode" onclick="toggleMode()">🌓 Dark Mode</button>
+
+  <div class="form-container">
+    <h2>Raise a Support Ticket</h2>
+    <form action="/submit" method="POST" enctype="multipart/form-data">
+      <label>Name</label>
+      <input type="text" name="name" required />
+
+      <label>Role</label>
+      <select name="role" required>
+        <option value="">-- Select --</option>
+        <option value="Student">Student</option>
+        <option value="Teacher">Teacher</option>
+        <option value="Management">Management</option>
+      </select>
+
+      <label>Email</label>
+      <input type="email" name="email" required />
+
+      <label>Category</label>
+      <select name="category" required>
+        <option value="">-- Select --</option>
+        <option value="Technical Issues">Technical Issues</option>
+        <option value="Accessibility & Usability">Accessibility & Usability</option>
+        <option value="Data Privacy & Security">Data Privacy & Security</option>
+        <option value="Communication Gaps">Communication Gaps</option>
+        <option value="Administrative & Content Management Challenges">Administrative & Content Management Challenges</option>
+      </select>
+
+      <label>Title of the Issue</label>
+      <input type="text" name="title" required />
+
+      <label>Description</label>
+      <textarea name="description" rows="4" required></textarea>
+
+      <label>Upload Screenshot (optional)</label>
+      <input type="file" name="image" accept="image/*" />
+
+      <button type="submit">Submit Ticket</button>
+    </form>
+
+    <div class="nav-links">
+      <a href="/track">🎫 Track Ticket</a>
+      <a href="/admin_login">🔒 Admin Login</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMode() {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+</body>
+</html>

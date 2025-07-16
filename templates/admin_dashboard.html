@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Roboto;
+      background-color: #f2f2f7;
+      color: #1c1c1e;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    body.dark {
+      background-color: #1c1c1e;
+      color: #f2f2f7;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #007aff;
+      border: none;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .logout-btn {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: #ff3b30;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    select, button {
+      padding: 0.5rem;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      margin: 0 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007aff;
+      color: white;
+    }
+
+    body.dark th {
+      background-color: #0a84ff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    body.dark tr:nth-child(even) {
+      background-color: #2c2c2e;
+    }
+
+    a.button {
+      padding: 0.4rem 0.7rem;
+      background-color: #007aff;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      margin: 0 2px;
+      display: inline-block;
+    }
+
+    a.button:hover {
+      background-color: #005bb5;
+    }
+
+    form.inline {
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-mode" onclick="toggleMode()">🌓 Dark Mode</button>
+  <a href="/logout" class="logout-btn">Logout</a>
+
+  <h2>Admin Dashboard</h2>
+
+  <div class="controls">
+    <form method="GET" style="display:inline;">
+      <label for="filter">Filter by Category:</label>
+      <select name="filter" onchange="this.form.submit()">
+        <option value="">All</option>
+        <option value="Technical Issues">Technical Issues</option>
+        <option value="Accessibility & Usability">Accessibility & Usability</option>
+        <option value="Data Privacy & Security">Data Privacy & Security</option>
+        <option value="Communication Gaps">Communication Gaps</option>
+        <option value="Administrative & Content Management Challenges">Administrative & Content Management Challenges</option>
+      </select>
+    </form>
+
+    <form action="/export_csv" method="POST" style="display:inline;">
+      <button type="submit">📁 Export CSV</button>
+    </form>
+  </div>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Ticket ID</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Email</th>
+      <th>Category</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    {% for ticket in tickets %}
+    <tr>
+      <td>{{ ticket[0] }}</td>
+      <td>{{ ticket[1] }}</td>
+      <td>{{ ticket[2] }}</td>
+      <td>{{ ticket[3] }}</td>
+      <td>{{ ticket[4] }}</td>
+      <td>{{ ticket[5] }}</td>
+      <td>{{ ticket[6] }}</td>
+      <td>{{ ticket[9] }}</td>
+      <td>
+        <a class="button" href="/ticket/{{ ticket[1] }}">View</a>
+        {% if ticket[9] != "Closed" %}
+        <a class="button" href="/close/{{ ticket[1] }}">Close</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <script>
+    function toggleMode() {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+</body>
+</html>

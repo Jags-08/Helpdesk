@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ticket Submitted</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Roboto;
+      background-color: #f2f2f7;
+      color: #1c1c1e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    body.dark {
+      background-color: #1c1c1e;
+      color: #f2f2f7;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark .container {
+      background-color: #2c2c2e;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    .ticket-id {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #007aff;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: white;
+      background-color: #007aff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #007aff;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-mode" onclick="toggleMode()">🌓 Dark Mode</button>
+
+  <div class="container">
+    <h2>🎉 Ticket Submitted Successfully!</h2>
+    <p>Your Ticket ID is:</p>
+    <p class="ticket-id">{{ ticket_id }}</p>
+    <a href="/track">Track Your Ticket</a>
+  </div>
+
+  <script>
+    function toggleMode() {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+</body>
+</html>

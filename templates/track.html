@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Track Ticket</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Roboto;
+      background-color: #f2f2f7;
+      color: #1c1c1e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    body.dark {
+      background-color: #1c1c1e;
+      color: #f2f2f7;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark .container {
+      background-color: #2c2c2e;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005bb5;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #007aff;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .back-link {
+      margin-top: 1rem;
+      display: block;
+      color: #007aff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-mode" onclick="toggleMode()">🌓 Dark Mode</button>
+
+  <div class="container">
+    <h2>Track Your Ticket</h2>
+    <form action="/ticket" method="GET">
+      <input type="text" name="ticket_id" placeholder="Enter your Ticket ID" required />
+      <button type="submit">Track</button>
+    </form>
+    <a href="/" class="back-link">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    function toggleMode() {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+</body>
+</html>
